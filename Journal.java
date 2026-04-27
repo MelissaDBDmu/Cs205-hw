@@ -48,7 +48,41 @@ public void setStatus(StatusType status) {
 	this.status = status;
 }
 
-
+@Override 
+public boolean equals(Object obj) {
+//	boolean authorsEqual =(Boolean) null;
+//	boolean titlesEqual = (Boolean) null;
+	if(this == obj) {return true;
+	}
+	if(obj == null || !(obj instanceof Book)) { return false;
+	}
+	
+	Journal temp = (Journal) obj;
+//	if(this.editor==null) {
+//		boolean authorsEqual = temp.editor==null;
+//	}else {
+//		boolean authorsEqual = this.editor.equals(temp.editor);
+//		return authorsEqual;
+//	}
+	
+	//using Ternary conditional operator
+	boolean authorsEqual = (this.editor == null)?
+			 temp.editor == null
+			: this.editor.equals(temp.editor);
+//	if(this.title==null) {
+//		boolean titlesEqual =  temp.title==null;
+//	}else {
+//		boolean titlesEqual = this.title.equals(temp.title);
+//		return titlesEqual;
+//	} 
+	// using ternary conditional operator
+	boolean titlesEqual = (this.title == null)?
+		 temp.title == null
+		 : this.title.equals(temp.title);
+	
+	return authorsEqual && titlesEqual;
+	
+}
 @Override
 public String toString() {
 	return "Journal: | Title: " + title + "| Editor: " + editor + "| Volume: " + volume + "| Status: " + status
@@ -58,21 +92,20 @@ public String toString() {
 @Override
 public String getTile() {
 	
-	return null;
+	return title;
 }
 @Override
 public boolean isAvailable() {
-	
-	return false;
+	return status == StatusType.ONSHELF;
 }
 @Override
 public void borrowItem() {
-	
+	status = StatusType.BORROWED;
 	
 }
 @Override
 public void returnItem() {
-	
+	status = StatusType.ONSHELF;
 	
 }
 

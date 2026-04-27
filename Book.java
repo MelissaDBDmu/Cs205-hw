@@ -47,24 +47,44 @@ public void setStatus(StatusType status) {
 	this.status = status;
 }
 public boolean isAvaliable() {
-	return true;
+	 return status == StatusType.ONSHELF;
 }
 public void borrowItem() {
-	
+	status = StatusType.BORROWED;
 }
 public void returnItem() {
+	status = StatusType.ONSHELF;
+}
+//
+@Override 
+public boolean equals(Object obj ) {
+	if(this == obj) return true;
+	if(obj == null || !(obj instanceof Book)) return false;
+	
+	Book temp = (Book) obj;
+	
+	boolean authorsEqual = (this.author == null)
+			? temp.author == null
+			: this.author.equals(temp.author);
+	
+	boolean titlesEqual = (this.title == null)
+			? temp.title == null
+			: this.title.equals(temp.title);
+	
+	return authorsEqual && titlesEqual;
 	
 }
+
 @Override
 public String toString() {
 	return "BOOK: Author: " + author+"| Title: "+title +"| Status: "+status+"| Pages: "+pages+" |";
 }
 @Override
 public String getTile() {
-	return null;
+	return title;
 }
 @Override
 public boolean isAvailable() {
-	return false;
+	return status == StatusType.ONSHELF;
 }
 }
